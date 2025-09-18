@@ -3,21 +3,25 @@ import jwt from 'jsonwebtoken';
 import { config } from '../config.js';
 
 const generateToken = () => {
-  return jwt.sign({}, config.appleMusic.privateKey, {
-    algorithm: 'ES256',
-    expiresIn: '1h',
-    issuer: config.appleMusic.teamId,
-    header: {
-      alg: 'ES256',
-      kid: config.appleMusic.keyId
-    }
-  });
+  // Apple Music JWT signing temporarily disabled
+  // const pemKey = config.appleMusic.privateKey.replace(/\\n/g, '\n');
+  // return jwt.sign({}, pemKey, {
+  //   algorithm: 'ES256',
+  //   expiresIn: '1h',
+  //   issuer: config.appleMusic.teamId,
+  //   header: {
+  //     alg: 'ES256',
+  //     kid: config.appleMusic.keyId
+  //   }
+  // });
+  return 'DISABLED_APPLE_MUSIC_JWT';
 };
 
 const api = axios.create({
   baseURL: 'https://api.music.apple.com/v1',
   headers: {
-    'Authorization': `Bearer ${generateToken()}`
+    // 'Authorization': `Bearer ${generateToken()}`
+    'Authorization': `Bearer DISABLED_APPLE_MUSIC_JWT`
   }
 });
 
